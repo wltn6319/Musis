@@ -9,6 +9,7 @@ node.js express 를 사용하여 웹 쇼핑몰 구현 공부...
 [ ] KJS
 
 ### Package 간략 설명
+ * express - Server
  * helmet - 보안
  * morgan - WEB Log
  * body-parser - POST 요청 body 추출 package 
@@ -17,5 +18,4 @@ node.js express 를 사용하여 웹 쇼핑몰 구현 공부...
  * babel - source code compiler
  * nodemon - 파일 수정 감지 서버 재 시작
  * eslint - source code prettier 구문 오류 감지 (안쓸 사람 안써도 됨)
- * express - Server
 
