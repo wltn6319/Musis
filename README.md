@@ -1,5 +1,6 @@
 # Musis 
  Implement Web Shop
+node.js express 를 사용하여 웹 쇼핑몰 구현 공부...
 
 ## 출첵
 [x] KJH
