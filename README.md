@@ -4,9 +4,9 @@ node.js express 를 사용하여 웹 쇼핑몰 구현 공부...
 
 ## 출첵
 [x] KJH
-[ ] KGD
-[ ] KHJ
-[ ] KJS
+[x] KGD
+[ ] JHJ
+[x] KJS
 
 ### Package 간략 설명
  * express - Server
