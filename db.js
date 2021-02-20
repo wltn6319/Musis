@@ -11,6 +11,7 @@ mongoose.connect(
         useFindAndModify: false
     }
 );
+mongoose.set("useCreateIndex", true);
 
 const db = mongoose.connection;
 
