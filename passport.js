@@ -11,11 +11,6 @@ const localStrategy = passportLocal.Strategy;
 const JWTstrategy = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
 
-const isAuthenticate = () => {
-    
-}
-
-
 const localStrategyOptions = {
     usernameField: "userID",
     passwordField: "userPW"
@@ -43,9 +38,11 @@ const localVerify = async (id, pw, done) => {
 }
 
 const jwtVerify = async (payload, done) => {
-    let user;
+    let user
     try {
-        user = await User.findOne(payload.userID);
+        user = await User.findOne({
+            userID: payload.id
+        });
         if(!user) return done(null, false);
     } catch (error) {
         return done(error);

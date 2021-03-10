@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
-import passport from "passport";
 import User from "../models/User";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
+import routes from "../routes";
 
 dotenv.config;
 
@@ -57,30 +57,46 @@ export const getLogin = (req, res) => {
     res.render("login", { pageTitle: "Login" });
 }
 
-export const postLogin = (req, res, next) => {
-    passport.authenticate("local", { session: false }, (err, user) =>{
-        if( err || !user ) res.status(400).json(err);
-        req.login(user, { session: false }, (error) => {
-            try {
-                if(error) return res.json(error);
+export const postLogin = async (req, res, next) => {
+    const {
+        userID, userPW
+    } = req.body;
 
-                const token = jwt.sign(
-                    { 
-                       name: user.name,
-                       ID: user.userID,
-                       _id: user._id
-                     },
-                     process.env.SECRET_KEY,
-                     { expiresIn: 3600 }
-                    );
-                    req.user = user;
-                return res.json({ 
-                    message: "Login Success",
-                    token
-                 });
-            } catch (error) {
-                return res.json(error);
-            }
+    let user;
+    try {
+        user = await User.findOne({
+            userID: userID
         });
-    })(req, res, next);
+
+        if(!user) return res.status(401).send("No find User");
+        const comparePassword = bcrypt.compare(userPW, user.userPW);
+        if(!comparePassword) return res.status(401).send("Passwords do not match");
+
+        const token = jwt.sign(
+            {
+                name: user.name,
+                id: user.userID,
+                _id: user._id
+            },
+            process.env.SECRET_KEY,
+            { expiresIn: 3600 }
+        );
+
+        res.cookie("token", token, {
+            httpOnly: true,
+            maxAge: 5 * 60 * 1000
+        });
+        console.log({
+            token,
+            user
+        })
+        return res.status(200).redirect(routes.home);
+    } catch (error) {
+        return res.status(401).send("Error");
+    }
+}
+
+export const logOut = (req, res) => {
+    res.clearCookie("token");
+    res.redirect(routes.home);
 }

@@ -8,6 +8,7 @@ import { localsMiddleware } from "./middleware";
 import userRouter from "./routers/userRouter";
 import passport from "passport";
 import "./passport";
+import cookieParser from "cookie-parser";
 
 
 const app = express();
@@ -16,11 +17,11 @@ const app = express();
 app.use(helmet());
 app.set("view engine", "pug"); 
 app.use(morgan("dev"));
+app.use(cookieParser());
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(localsMiddleware);
-
 app.use(passport.initialize());
 
 app.use(routes.home, globalRouter);
