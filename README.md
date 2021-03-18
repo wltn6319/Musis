@@ -5,7 +5,7 @@ node.js express 를 사용하여 웹 쇼핑몰 구현 공부...
 ## 출첵
 [x] KJH
 [x] KGD
-[ ] JHJ
+[x] JHJ
 [x] KJS
 
 ### Package 간략 설명
