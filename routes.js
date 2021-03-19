@@ -15,8 +15,16 @@ const USER_DELETE = "/:id/delete";
 const ADMIN = "/admin";
 const ADMIN_DETAIL = "/:id";
 const ADMIN_EDIT = "/:id/edit";
+const ADMIN_PRODUCT_DETAIL = "/products/detail/:id";
+const ADMIN_PRODUCT_EDIT = "/products/edit/:id";
+const ADMIN_PRODUCT_DELETE = "/products/delete/:id";
 
 // products
+const PRODUCTS = "/products";
+const PRODUCTS_DETAIL = "/:id";
+const PRODUCTS_WRITE = "/:id/write"
+const PRODUCTS_EDIT = "/:id/edit";
+const PRODUCTS_DELETE = "/:id/delete"
 
 // api
 const API = "/api";
@@ -38,6 +46,14 @@ const routes = {
     admin: ADMIN,
     adminDetail: ADMIN_DETAIL,
     adminEdit: ADMIN_EDIT,
+    adminProductDetail: ADMIN_PRODUCT_DETAIL,
+    adminProductEdit: ADMIN_PRODUCT_EDIT,
+    adminProductDelete: ADMIN_PRODUCT_DELETE,
+    products: PRODUCTS,
+    productsDetail: PRODUCTS_DETAIL,
+    productsWrite: PRODUCTS_WRITE,
+    productsEdit: PRODUCTS_EDIT,
+    productsDelete: PRODUCTS_DELETE,
     api: API,
     auth: AUTH
 };

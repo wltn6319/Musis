@@ -3,12 +3,17 @@ import User from "../models/User";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
 import routes from "../routes";
+import product from "../models/product";
 
 dotenv.config;
 
-
 export const getHome = (req, res) => {
-    res.render("home", {pageTitle: "Home"});
+    product.find((err, products) => {
+        res.render("home", 
+        {pageTitle: "Home",
+        products : products
+    });
+    })
 }
 
 export const getJoin = (req, res) => {
