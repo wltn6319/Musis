@@ -37,3 +37,7 @@ export const verifyToken = async (req, res, next) => {
     req.user = decoded
     next();
 };
+
+//export const middleware = async(req, res, next) => {
+//
+//};

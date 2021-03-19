@@ -1,0 +1,21 @@
+<%- include('header') %>
+    <div class="container" id="masonry_container">
+        <% products.forEach(function(product){ %>
+        <div class="masonry-grid">
+            <a href="/products/<%=product.id%>">
+                <%if(product.thumbnail){%>
+                    <img src="/uploads/<%=product.thumbnail%>">
+                <%}%>
+                <p>
+                    <%=product.title%><br />
+                    by <%=product.username%>(
+                    <%=product.getDate.year%>.
+                    <%=product.getDate.month%>.
+                    <%=product.getDate.day%>
+                    )
+                </p>
+            </a>
+        </div>
+        <%});%>
+    </div>
+<%- include('footer') %>
