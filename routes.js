@@ -4,6 +4,15 @@ const JOIN = "/join";
 const LOGIN = "/login";
 const LOGOUT = "/logout";
 
+//board
+const BOARD = "/board";
+const LIST = "/list";
+const BOARDCREATE = "/boardCreate";
+const BOARDDETAIL = "/boardDetail/:id";
+const BOARDUPDATE = "/boardUpdate/:id";
+const BOARDDELETE = "/boardDelete/:id";
+
+
 // users
 const USER = "/user";
 const PROFILE = "/profile";
@@ -38,6 +47,12 @@ const routes = {
     join: JOIN,
     login: LOGIN,
     logout: LOGOUT,
+    board: BOARD,
+    list: LIST,
+    boardCreate: BOARDCREATE,
+    boardDetail : BOARDDETAIL,
+    boardUpdate : BOARDUPDATE,
+    boardDelete : BOARDDELETE,
     user: USER,
     profile: PROFILE,
     userDetail: USER_DETAIL,

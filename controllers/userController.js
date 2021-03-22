@@ -1,9 +1,11 @@
 export const getProfile = (req, res, next) => {
-    return res.json({
-        message: "You made it to the secure route",
-        user: req.user,
-        token: req.token
-    })
+    const decoded = req.user;
+   
+    const context = {
+            userid : decoded.id,
+            username : decoded.name
+    }
+    res.render("profile.ejs", context);
 }
 
 export const postProfile = async (req, res, next) => {

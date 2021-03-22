@@ -12,6 +12,7 @@ export const getAdminHome = (req, res) => {
 }
 
 export const getAdminProducts = async(req, res, next) => {
+    let token = req.cookies.token   //로그인이 되어있는지 판별 (로그인시 상단에 <로그아웃 프로필> 표시 안되있을시 <로그인? 표시 )
     const [ results, itemCount ] = await Promise.all([
         ProductsModel.find().sort('-created_at').limit(req.query.limit).skip(req.skip).exec(),
         ProductsModel.countDocuments({})
@@ -21,6 +22,7 @@ export const getAdminProducts = async(req, res, next) => {
     const pages = paginate.getArrayPages(req)( 10 , pageCount, req.query.page); // 10개씩 페이지 블락
 
     res.render('admin/products', { 
+        user : token,
         products : results , 
         pages: pages,
         pageCount : pageCount,
@@ -28,7 +30,8 @@ export const getAdminProducts = async(req, res, next) => {
 }
 
 export const getProductWrite = (req, res) => {
-    res.render( 'admin/form' , { product : "", csrfToken : req.csrfToken() }); 
+    let token = req.cookies.token   //로그인이 되어있는지 판별 (로그인시 상단에 <로그아웃 프로필> 표시 안되있을시 <로그인? 표시 )
+    res.render( 'admin/form' , { user: token, product : "", csrfToken : req.csrfToken() }); 
 }
 
 export const postProductWrite = (req, res) => {
@@ -52,17 +55,19 @@ export const postProductWrite = (req, res) => {
 
 export const getProductDetail = async(req, res) => {
     try{
+        let token = req.cookies.token   //로그인이 되어있는지 판별 (로그인시 상단에 <로그아웃 프로필> 표시 안되있을시 <로그인? 표시 )
         let product = await ProductsModel.findOne( { 'id' :  req.params.id }).exec();
         
-        res.render('admin/productsDetail', { product: product });
+        res.render('admin/productsDetail', { user: token, product: product });
     }catch(e){
         res.send(e);
     }
 }
 
 export const getProductEdit = (req, res) => {
+    let token = req.cookies.token   //로그인이 되어있는지 판별 (로그인시 상단에 <로그아웃 프로필> 표시 안되있을시 <로그인? 표시 )
     ProductsModel.findOne({ id : req.params.id } , function(err, product){
-        res.render('admin/form', { product : product, csrfToken : req.csrfToken() });
+        res.render('admin/form', { user: token, product : product, csrfToken : req.csrfToken() });
     });
 }
 

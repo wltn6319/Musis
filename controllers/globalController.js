@@ -7,17 +7,20 @@ import product from "../models/product";
 
 dotenv.config;
 
+
 export const getHome = (req, res) => {
+    let token = req.cookies.token //로그인이 되어있는지 판별 (로그인시 상단에 <로그아웃 프로필> 표시 안되있을시 <로그인? 표시 )
     product.find((err, products) => {
         res.render("home", 
         {pageTitle: "Home",
-        products : products
+        products : products,
+        user : token
     });
     })
 }
 
 export const getJoin = (req, res) => {
-    res.render("join", {pageTitle:"Join"});
+    res.render("join.ejs");
 }
 
 export const postJoin = async (req, res, next) => {
@@ -54,12 +57,12 @@ export const postJoin = async (req, res, next) => {
         if(err) return console.log(err);
         console.dir(newUser);
     })
-    res.json(newUser);
+    res.render("join_success.ejs", {userid: userID, username: name});
 }
 
 
 export const getLogin = (req, res) => {
-    res.render("login", { pageTitle: "Login" });
+    res.render("login.ejs");
 }
 
 export const postLogin = async (req, res, next) => {
@@ -95,7 +98,8 @@ export const postLogin = async (req, res, next) => {
             token,
             user
         })
-        return res.status(200).redirect(routes.home);
+        res.redirect("/");
+
     } catch (error) {
         return res.status(401).send("Error");
     }
@@ -105,3 +109,4 @@ export const logOut = (req, res) => {
     res.clearCookie("token");
     res.redirect(routes.home);
 }
+
