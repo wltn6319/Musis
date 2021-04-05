@@ -18,7 +18,7 @@ export const getlist = async(req, res) => {
          maxPost, // 페이지당 최대 게시물
          hidePost, // find().limit을 위한 변수 앞에 find한 데이터를 제외하고 그 다음 데이터를 불러오기 위함
          totalPage, // 총 페이지
-         currentPage // 현재 위치한 페이지
+         currentPage, // 현재 위치한 페이지
      } = paging(page, totalPost);
      const boards = await Board.find({}).limit(maxPost).skip(hidePost).sort({_id : -1}); 
      res.render("board/list", {
@@ -32,7 +32,7 @@ export const getlist = async(req, res) => {
          maxPost
      });
     }catch (error){
-        res.render("board/list" , {user : token, boards: [], startPage : 1, endPage:1}); //디비에 데이터가 없을시 
+        res.render("board/list" , {user : token, boards: [], startPage : 1, endPage:1, currentPage : 1 ,totalPost : 0, maxPost: 8, totalPage:1}); //디비에 데이터가 없을시 
     }
 }
 
@@ -43,7 +43,7 @@ const paging = (page, totalPost) =>{
     let currentPage = page ? parseInt(page) : 1; // 쿼리스트링으로 받아와서 parseInt메서드 사용
     const hidePost = page === 1 ? 0 : (page - 1) * maxPost;
     const totalPage = Math.ceil(totalPost / maxPost);
-
+    console.log("-------------------", currentPage);
     if(currentPage > totalPage) { // 현재 페이지가 총 페이지 보다 클 경우 현재페이지가 마지막 페이지가 되게함
         currentPage = totalPage;
     }
